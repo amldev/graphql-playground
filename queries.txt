@@ -1,0 +1,36 @@
+query getCourse($id: Int!) {
+  course(id: $id) {
+    id
+    title
+    author
+    description
+    topic
+    url
+  }
+}
+
+query getCourseByTopic($topic: String) {
+  courses(topic: $topic) {
+    id
+    title
+    author
+    description
+    topic
+    url
+  }
+}
+
+mutation updateCourseTopic($id: Int!, $topic: String!) {
+  updateCourseTopic(id: $id, topic: $topic) {
+    ...courseFields
+  }
+}
+
+fragment courseFields on Course {
+  id
+  title
+  author
+  description
+  topic
+  url
+}
