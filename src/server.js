@@ -2,6 +2,8 @@ var express = require('express');
 var graphqlHTTP = require('express-graphql');
 var { buildSchema } = require('graphql');
 
+const mongoose = require('mongoose');
+
 // Take course data
 var courses = require('./data/course');
 
@@ -66,6 +68,18 @@ var root = {
   courses: getCourses,
   updateCourseTopic: updateSelectCourseTopic
 };
+
+// Database connection debug
+// 'mongodb://localhost:27017/hospitalDB'
+const LOG_COLOR = "\x1b[36m%s\x1b[0m";
+
+const CONNECTION_REFERENCE = 'mongodb://mugan86:E02427gz@ds125526.mlab.com:25526/graphql-mugan86';
+
+// Database connection
+mongoose.connection.openUri(CONNECTION_REFERENCE, { useNewUrlParser: true }, ( err, res) => {
+    if ( err ) throw err;
+    console.log(`Database: ${LOG_COLOR}`, 'online');
+});
 
 
 // Create an express server and a GraphQL endpoint
